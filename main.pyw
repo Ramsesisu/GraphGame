@@ -59,7 +59,9 @@ while active:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE or start or levelup:
                 if event.key == pygame.K_ESCAPE:
-                    level = 1
+                    level -= 1
+                    if level == 0:
+                        level = 1
 
                 while True:
                     increment_x = random.randrange(4, 40, 2)
@@ -204,7 +206,9 @@ while active:
 
                         pygame.display.flip()
 
-                        level = 1
+                        level -= 1
+                        if level == 0:
+                            level = 1
 
                         waiting = True
                         levelup = False
@@ -224,7 +228,9 @@ while active:
 
                         pygame.display.flip()
 
-                        level = 1
+                        level -= 1
+                        if level == 0:
+                            level = 1
 
                         waiting = True
                         levelup = False
