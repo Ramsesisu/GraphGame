@@ -37,6 +37,8 @@ waiting = False
 levelup = False
 
 func = ""
+cursor = 0
+
 level = 1
 
 increment_x = 12
@@ -93,6 +95,17 @@ while active:
                 levelup = False
             elif event.key == pygame.K_BACKSPACE:
                 func = func[:-1]
+                if len(func) == 0:
+                    cursor = 1
+                cursor -= 1
+            elif event.key == pygame.K_LEFT:
+                if cursor == 0:
+                    cursor = 1
+                cursor -= 1
+            elif event.key == pygame.K_RIGHT:
+                if cursor == len(func):
+                    cursor = len(func) - 1
+                cursor += 1
             elif event.key == pygame.K_RETURN:
                 if solution:
                     solution = False
@@ -102,7 +115,9 @@ while active:
                     continue
             else:
                 if not waiting:
-                    func = func.replace("**", "^") + event.unicode
+                    func = func.replace("**", "^")
+                    func = func[0:cursor] + event.unicode + func[cursor:]
+                    cursor += 1
             if start:
                 func = ""
                 start = False
@@ -156,7 +171,7 @@ while active:
                 w_last = w
                 h_last = h
 
-                screen.blit(title.render(f" f(x) = {func} ", True, BLACK, LIGHT_GREEN), (10, 10))
+                screen.blit(title.render(f" f(x) = {func}   ", True, BLACK, LIGHT_GREEN), (10, 10))
 
                 target_w = target_x * width / increment_x + width / 2
                 target_h = -target_y * height / increment_y + height / 2
@@ -279,7 +294,7 @@ while active:
     target_h = -target_y * height / increment_y + height / 2
     pygame.draw.circle(screen, RED, [target_w, target_h], int(height / 20), int(height / 20))
 
-    screen.blit(title.render(f" f(x) = {func} ", True, BLACK, GRAY), (10, 10))
+    screen.blit(title.render(f" f(x) = {func[0:cursor] + '_' + func[cursor:]} ", True, BLACK, GRAY), (10, 10))
     font = title.render(f" Level: {level} ", True, BLACK, GRAY)
     screen.blit(font, (width - font.get_width() - 10, 10))
 
