@@ -1,3 +1,5 @@
+# made by https://github.com/Ramsesisu
+
 import random
 # noinspection PyUnresolvedReferences
 from math import *
