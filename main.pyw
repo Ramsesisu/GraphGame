@@ -3,12 +3,11 @@ import random
 from math import *
 
 import pygame
-from screeninfo import get_monitors
 
 pygame.init()
 
-width = get_monitors()[0].width / 1.5
-height = get_monitors()[0].height / 1.5
+width = 1000
+height = 800
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
