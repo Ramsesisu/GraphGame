@@ -91,7 +91,7 @@ while active:
                         lenght = 1
                     if lenght > 4:
                         lenght = 4
-                    if distance > int(height / (2 * lenght)):
+                    if distance > int(height / (2 * lenght) + height / 20):
                         obstacles.append([rand_w, rand_h])
 
                 levelup = False
@@ -248,8 +248,8 @@ while active:
         continue
 
     if start:
-        screen.fill(DARK_GRAY)
-        screen.blit(title.render("GraphGame", True, WHITE), (width / 2 - 60, height / 2 - 40))
+        screen.fill(LIGHT_GREEN)
+        screen.blit(title.render("GraphGame", True, DARK_GRAY), (width / 2 - 60, height / 2 - 40))
 
         pygame.display.flip()
         continue
