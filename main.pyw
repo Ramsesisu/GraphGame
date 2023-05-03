@@ -212,6 +212,7 @@ while active:
 
                         level += 1
                         func = ""
+                        cursor = len(func)
 
                         waiting = True
                         levelup = True
@@ -227,6 +228,8 @@ while active:
                         levelup = False
 
                     pygame.display.flip()
+
+                    cursor = len(func)
                     break
             except:
                 w_last = None
