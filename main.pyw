@@ -118,9 +118,13 @@ while active:
             else:
                 if not waiting:
                     func = func.replace("**", "^")
-                    old = len(func)
+                    len_old = len(func)
+                    len_part = len(func[0:cursor])
+                    if len_part > 0:
+                        if func[0:cursor][len_part - 1] == "^" and event.unicode == "^":
+                            event.unicode = "2"
                     func = func[0:cursor] + event.unicode + func[cursor:]
-                    if not len(func) == old:
+                    if not len(func) == len_old:
                         cursor += 1
             if start:
                 func = ""
