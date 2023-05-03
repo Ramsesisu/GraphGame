@@ -77,8 +77,8 @@ while active:
 
                 obstacles = []
                 amount = level
-                if amount > 8:
-                    amount = 8
+                if amount > 20:
+                    amount = 20
                 for o in range(amount):
                     rand_w = random.randint(0, width)
                     rand_h = random.randint(0, height)
