@@ -7,8 +7,8 @@ from screeninfo import get_monitors
 
 pygame.init()
 
-width = get_monitors()[0].width / 2
-height = get_monitors()[0].height / 2
+width = get_monitors()[0].width / 1.5
+height = get_monitors()[0].height / 1.5
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -94,7 +94,7 @@ while active:
 
                 levelup = False
             elif event.key == pygame.K_BACKSPACE:
-                func = func[:-1]
+                func = func[0:cursor - 1] + func[cursor:]
                 if len(func) == 0:
                     cursor = 1
                 cursor -= 1
