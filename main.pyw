@@ -116,8 +116,10 @@ while active:
             else:
                 if not waiting:
                     func = func.replace("**", "^")
+                    old = len(func)
                     func = func[0:cursor] + event.unicode + func[cursor:]
-                    cursor += 1
+                    if not len(func) == old:
+                        cursor += 1
             if start:
                 func = ""
                 start = False
