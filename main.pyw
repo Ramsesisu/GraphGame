@@ -57,6 +57,7 @@ while active:
         elif event.type == pygame.VIDEORESIZE:
             width = screen.get_width()
             height = screen.get_height()
+            screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE or start or levelup:
                 if event.key == pygame.K_ESCAPE:
