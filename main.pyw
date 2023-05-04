@@ -19,9 +19,10 @@ GREEN = (34, 139, 34)
 LIGHT_GREEN = (144, 238, 144)
 RED = (255, 0, 0)
 DARK_RED = (139, 0, 0)
+BLUE = (0, 0, 255)
 GOLD = (218, 165, 32)
 
-screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("GraphGame")
 
 title = pygame.font.SysFont(None, 36)
@@ -57,7 +58,7 @@ while active:
         elif event.type == pygame.VIDEORESIZE:
             width = screen.get_width()
             height = screen.get_height()
-            screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+            screen = pygame.display.set_mode((width, height))
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE or start or levelup:
                 if event.key == pygame.K_ESCAPE:
@@ -91,7 +92,7 @@ while active:
                         lenght = 1
                     if lenght > 20:
                         lenght = 20
-                    if distance > int(height / (2 * lenght) + height / 20):
+                    if distance > int(width / (2 * lenght) + width / 20):
                         obstacles.append([rand_w, rand_h])
 
                 levelup = False
@@ -187,7 +188,7 @@ while active:
                 if distance < int(height / 20):
                     if not win:
                         if not crashed:
-                            pygame.draw.circle(screen, GOLD, [w, h], 5, 5)
+                            pygame.draw.circle(screen, GOLD, [w, h], 8, 8)
 
                         win = True
 
@@ -198,13 +199,25 @@ while active:
                         lenght = 1
                     if lenght > 20:
                         lenght = 20
-                    if distance < int(height / (2 * lenght)):
+                    if distance < int(width / (2 * lenght)):
                         if not crashed:
-                            pygame.draw.circle(screen, GOLD, [w, h], 5, 5)
+                            pygame.draw.circle(screen, GOLD, [w, h], 8, 8)
                         crashed = True
 
                 if w >= width:
-                    if crashed:
+                    if not 0 <= h <= height:
+                        font = info.render("Failed!", True, DARK_RED)
+                        screen.blit(font, ((width - font.get_width()) / 2, (height - font.get_height()) / 2))
+
+                        pygame.display.flip()
+
+                        level -= 1
+                        if level == 0:
+                            level = 1
+
+                        waiting = True
+                        levelup = False
+                    elif crashed:
                         font = info.render("Crashed!", True, DARK_RED)
                         screen.blit(font, ((width - font.get_width()) / 2, (height - font.get_height()) / 2))
 
@@ -219,6 +232,7 @@ while active:
                     elif win:
                         font = info.render("Level-Up!", True, GOLD)
                         screen.blit(font, ((width - font.get_width()) / 2, (height - font.get_height()) / 2))
+                        pygame.draw.circle(screen, GOLD, [w, h], 8, 8)
 
                         level += 1
                         func = ""
@@ -275,7 +289,7 @@ while active:
             screen.blit(numbers.render(str(label).replace(".0", ""), True, BLACK), (index, height / 2 + 10))
         label += 1 / step
     pygame.draw.polygon(screen, BLACK,
-                        [(width - 10, height / 2 + 7), (width - 10, height / 2 - 7), (width, height / 2)])
+                        [(width - 15, height / 2 + 7), (width - 15, height / 2 - 7), (width - 5, height / 2)])
 
     pygame.draw.line(screen, BLACK, (width / 2, 0), (width / 2, height), 2)
     max_y = int(increment_y) - 1
@@ -303,11 +317,17 @@ while active:
             lenght = 1
         if lenght > 20:
             lenght = 20
-        pygame.draw.circle(screen, DARK_GRAY, o, int(height / (2 * lenght)), int(height / (2 * lenght)))
+        pygame.draw.circle(screen, DARK_GRAY, o, int(width / (2 * lenght)), int(width / (2 * lenght)))
+        pygame.draw.circle(screen, RED, o, int(width / (2 * lenght)), int(width / (20 * lenght)))
 
     target_w = target_x * width / increment_x + width / 2
     target_h = -target_y * height / increment_y + height / 2
-    pygame.draw.circle(screen, RED, [target_w, target_h], int(height / 20), int(height / 20))
+    pygame.draw.circle(screen, BLUE, [target_w, target_h], int(height / 20), int(height / 20))
+    font = title.render("X", True, BLACK)
+    screen.blit(font, (target_w - font.get_width() / 2, target_h - font.get_height() / 2))
+
+    pygame.draw.line(screen, GREEN, [0, 0], [0, height], 10)
+    pygame.draw.line(screen, BLUE, [width, 0], [width, height], 10)
 
     screen.blit(title.render(f" f(x) = {func[0:cursor] + '_' + func[cursor:]} ", True, BLACK, GRAY), (10, 10))
     font = title.render(f" Level: {level} ", True, BLACK, GRAY)
