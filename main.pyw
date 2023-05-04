@@ -41,7 +41,7 @@ levelup = False
 func = ""
 cursor = 0
 
-level = 20
+level = 1
 
 increment_x = 12
 increment_y = 12
