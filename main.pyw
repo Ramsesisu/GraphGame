@@ -99,10 +99,11 @@ while active:
 
                 levelup = False
             elif event.key == pygame.K_BACKSPACE:
-                func = func[0:cursor - 1] + func[cursor:]
-                if len(func) == 0:
-                    cursor = 1
-                cursor -= 1
+                if cursor > 0:
+                    func = func[0:cursor - 1] + func[cursor:]
+                    if len(func) == 0:
+                        cursor = 1
+                    cursor -= 1
             elif event.key == pygame.K_LEFT:
                 if cursor == 0:
                     cursor = 1
