@@ -177,7 +177,7 @@ while active:
                 if w_last is not None:
                     if w > w_last:
                         if not crashed:
-                            pygame.draw.line(screen, GREEN, [w_last, h_last], [w, h], 3)
+                            pygame.draw.line(screen, BLUE, [w_last, h_last], [w, h], 3)
 
                 w_last = w
                 h_last = h
@@ -324,12 +324,12 @@ while active:
 
     target_w = target_x * width / increment_x + width / 2
     target_h = -target_y * height / increment_y + height / 2
-    pygame.draw.circle(screen, BLUE, [target_w, target_h], int(height / 20), int(height / 20))
+    pygame.draw.circle(screen, GREEN, [target_w, target_h], int(height / 20), int(height / 20))
     font = title.render("X", True, BLACK)
     screen.blit(font, (target_w - font.get_width() / 2, target_h - font.get_height() / 2))
 
-    pygame.draw.line(screen, GREEN, [0, 0], [0, height], 10)
-    pygame.draw.line(screen, BLUE, [width, 0], [width, height], 10)
+    pygame.draw.line(screen, BLUE, [0, 0], [0, height], 10)
+    pygame.draw.line(screen, GREEN, [width, 0], [width, height], 10)
 
     screen.blit(title.render(f" f(x) = {func[0:cursor] + '_' + func[cursor:]} ", True, BLACK, GRAY), (10, 10))
     font = title.render(f" Level: {level} ", True, BLACK, GRAY)
