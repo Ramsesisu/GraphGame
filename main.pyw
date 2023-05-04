@@ -41,7 +41,7 @@ levelup = False
 func = ""
 cursor = 0
 
-level = 1
+level = 20
 
 increment_x = 12
 increment_y = 12
@@ -80,6 +80,8 @@ while active:
 
                 obstacles = []
                 amount = level
+                if amount == 1:
+                    amount = 2
                 for o in range(amount):
                     rand_w = random.randint(0, width)
                     rand_h = random.randint(0, height)
@@ -87,12 +89,12 @@ while active:
                     target_w = target_x * width / increment_x + width / 2
                     target_h = -target_y * height / increment_y + height / 2
                     distance = sqrt((rand_w - target_w) ** 2 + (rand_h - target_h) ** 2)
-                    lenght = len(obstacles)
-                    if lenght == 0:
-                        lenght = 1
-                    if lenght > 20:
-                        lenght = 20
-                    if distance > int(width / (2 * lenght) + width / 20):
+                    lenght = amount
+                    if lenght == 1:
+                        lenght = 2
+                    if lenght > 15:
+                        lenght = 15
+                    if distance > int(height / (2 * lenght) + height / 20 + 20):
                         obstacles.append([rand_w, rand_h])
 
                 levelup = False
@@ -195,11 +197,11 @@ while active:
                 for o in obstacles:
                     distance = sqrt((w - o[0]) ** 2 + (h - o[1]) ** 2)
                     lenght = len(obstacles)
-                    if lenght == 0:
-                        lenght = 1
-                    if lenght > 20:
-                        lenght = 20
-                    if distance < int(width / (2 * lenght)):
+                    if lenght == 1:
+                        lenght = 2
+                    if lenght > 15:
+                        lenght = 15
+                    if distance < int(height / (2 * lenght)):
                         if not crashed:
                             pygame.draw.circle(screen, GOLD, [w, h], 8, 8)
                         crashed = True
@@ -312,13 +314,13 @@ while active:
     pygame.draw.polygon(screen, BLACK, [(width / 2 + 7, 10), (width / 2 - 7, 10), (width / 2, 0)])
 
     for o in obstacles:
-        lenght = len(obstacles)
-        if lenght == 0:
-            lenght = 1
-        if lenght > 20:
-            lenght = 20
-        pygame.draw.circle(screen, DARK_GRAY, o, int(width / (2 * lenght)), int(width / (2 * lenght)))
-        pygame.draw.circle(screen, RED, o, int(width / (2 * lenght)), int(width / (20 * lenght)))
+        lenght = level
+        if lenght == 1:
+            lenght = 2
+        if lenght > 15:
+            lenght = 15
+        pygame.draw.circle(screen, DARK_GRAY, o, int(height / (2 * lenght)), int(height / (2 * lenght)))
+        pygame.draw.circle(screen, RED, o, int(height / (2 * lenght)), int(height / (20 * lenght)))
 
     target_w = target_x * width / increment_x + width / 2
     target_h = -target_y * height / increment_y + height / 2
