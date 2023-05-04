@@ -328,8 +328,8 @@ while active:
     font = title.render("X", True, BLACK)
     screen.blit(font, (target_w - font.get_width() / 2, target_h - font.get_height() / 2))
 
-    pygame.draw.line(screen, BLUE, [0, 0], [0, height], 10)
-    pygame.draw.line(screen, GREEN, [width, 0], [width, height], 10)
+    pygame.draw.line(screen, BLUE, [0, 0], [0, height], 8)
+    pygame.draw.line(screen, GREEN, [width, 0], [width, height], 12)
 
     screen.blit(title.render(f" f(x) = {func[0:cursor] + '_' + func[cursor:]} ", True, BLACK, GRAY), (10, 10))
     font = title.render(f" Level: {level} ", True, BLACK, GRAY)
